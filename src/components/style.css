@@ -12,8 +12,6 @@
   margin: 50px auto;
   text-align: center;
   color: white;
-  /* background: url("src/images/bg.jpg");
-  background-size: cover; */
 }
 
 .search {
@@ -54,7 +52,7 @@
 }
 
 .winfo h4 {
-  margin-top: -30px;
+  margin-top: -20px;
   margin-bottom: 50px;
   font-size: 2rem;
 }

@@ -6,6 +6,7 @@ const Home = () => {
   const [data, setData] = useState({
     celcius: 10,
     name: "Karachi",
+    country: "PK",
     weather: "Clear",
     humidity: 10,
     speed: 2,
@@ -23,40 +24,43 @@ const Home = () => {
 
   function handleClick() {
     if (city !== "") {
-      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f5ccc0314221e8f9e0b8cd4d04adffb5`;
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=2fa73590fd8b5a4c6e68098ad5625395`;
       axios
         .get(apiUrl)
         .then((res) => {
+          console.log(res);
           let imagePath = "";
           if (res.data.weather[0].main == "Clear") {
-            imagePath = "Clear.jpg";
+            imagePath = "src/images/Clear.jpg";
           } else if (res.data.weather[0].main == "Snow") {
-            imagePath = "Snow.jpg";
+            imagePath = "src/images/Snow.jpg";
           } else if (res.data.weather[0].main == "Clouds") {
-            imagePath = "Cloudy.jpg";
+            imagePath = "src/images/Cloudy.jpg";
           } else if (res.data.weather[0].main == "Fog") {
-            imagePath = "Fog.jpg";
+            imagePath = "src/images/Fog.jpg";
           } else if (res.data.weather[0].main == "Haze") {
-            imagePath = "Haze.jpg";
+            imagePath = "src/images/Haze.jpg";
           } else if (res.data.weather[0].main == "Rain") {
-            imagePath = "Rain.jpg";
+            imagePath = "src/images/Rain.jpg";
           } else if (res.data.weather[0].main == "Smoke") {
-            imagePath = "Smoke.jpg";
+            imagePath = "src/images/Smoke.jpg";
           } else if (res.data.weather[0].main == "Sunny") {
-            imagePath = "Sunny.jpg";
+            imagePath = "src/images/Sunny.jpg";
           } else if ("Thunder" in res.data.weather[0].main) {
-            imagePath = "Clear.jpg";
+            imagePath = "src/images/Clear.jpg";
           } else if ("wind" in res.data.weather[0].main) {
-            imagePath = "Windy.jpg";
+            imagePath = "src/images/Windy.jpg";
           }
           setData({
             celcius: res.data.main.temp,
             name: res.data.name,
+            country: res.data.sys.country,
             weather: res.data.weather[0].main,
             humidity: res.data.main.humidity,
             speed: res.data.wind.speed,
             image: `url(${imagePath})`,
           });
+          setError("");
         })
         .catch((err) => {
           if (err.response.status === 404) {
@@ -91,7 +95,9 @@ const Home = () => {
         <div className="winfo">
           <h1>{Math.round(data.celcius)} °C</h1>
           <h4>{data.weather}</h4>
-          <h2>{data.name}</h2>
+          <h2>
+            {data.name}, {data.country}
+          </h2>
           <div className="details">
             <div className="col">
               <img src="src/images/humidity.png" alt="" />
