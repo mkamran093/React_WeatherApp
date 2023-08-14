@@ -14,6 +14,7 @@
   color: white;
   /* background: linear-gradient(130deg, rgb(86, 86, 235), rgb(5, 5, 199)); */
   background: url("src/images/bg.jpg");
+  background-size: cover;
 }
 
 .search {
@@ -80,6 +81,16 @@
   margin-right: 10px;
 }
 
-.details .wind {
+.details .wind-logo {
   width: 70px;
+}
+
+.humidity,
+.wind {
+  font-size: 22px;
+}
+
+.humidity p,
+.wind p {
+  margin: 0px;
 }
