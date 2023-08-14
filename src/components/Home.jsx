@@ -18,7 +18,7 @@ const Home = () => {
   const [error, setError] = useState("");
 
   const imgStyle = {
-    background: data.image,
+    backgroundImage: data.image,
     backgroundSize: "cover",
   };
 
