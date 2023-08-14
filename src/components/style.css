@@ -13,7 +13,7 @@
   text-align: center;
   color: white;
   /* background: linear-gradient(130deg, rgb(86, 86, 235), rgb(5, 5, 199)); */
-  background: url("src/images/bg.jpg");
+  /* background: url("src/images/bg.jpg"); */
   background-size: cover;
 }
 
@@ -93,4 +93,10 @@
 .humidity p,
 .wind p {
   margin: 0px;
+}
+
+.error {
+  color: red;
+  text-align: left;
+  margin-right: 10px;
 }

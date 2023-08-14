@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import "./style.css";
 
 const Home = () => {
@@ -9,9 +8,17 @@ const Home = () => {
     name: "Karachi",
     humidity: 10,
     speed: 2,
+    image: `url("src/images/bg.jpg")`,
   });
 
   const [city, setCity] = useState("Karachi");
+
+  const [error, setError] = useState("");
+
+  const imgStyle = {
+    background: data.image,
+    // backgroundSize: "cover",
+  };
 
   function handleClick() {
     if (city !== "") {
@@ -19,20 +26,52 @@ const Home = () => {
       axios
         .get(apiUrl)
         .then((res) => {
+          let imagePath = "";
+          if (res.data.weather[0].main == "Clear") {
+            imagePath = "Clear.jpg";
+          } else if (res.data.weather[0].main == "Snow") {
+            imagePath = "Snow.jpg";
+          } else if (res.data.weather[0].main == "Clouds") {
+            imagePath = "Cloudy.jpg";
+          } else if (res.data.weather[0].main == "Fog") {
+            imagePath = "Fog.jpg";
+          } else if (res.data.weather[0].main == "Haze") {
+            imagePath = "Haze.jpg";
+          } else if (res.data.weather[0].main == "Rain") {
+            imagePath = "Rain.jpg";
+          } else if (res.data.weather[0].main == "Smoke") {
+            imagePath = "Smoke.jpg";
+          } else if (res.data.weather[0].main == "Sunny") {
+            imagePath = "Sunny.jpg";
+          } else if ("Thunder" in res.data.weather[0].main) {
+            imagePath = "Clear.jpg";
+          } else if ("wind" in res.data.weather[0].main) {
+            imagePath = "Windy.jpg";
+          }
           setData({
             celcius: res.data.main.temp,
             name: res.data.name,
             humidity: res.data.main.humidity,
             speed: res.data.wind.speed,
+            image: `url(${imagePath})`,
           });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          if (err.response.status === 404) {
+            setError("Invalid city name");
+          } else if (err.response.status === 429) {
+            setError("Server Busy. Too many requests");
+          } else {
+            setError("");
+          }
+          console.log(err);
+        });
     }
   }
 
   return (
     <div className="container">
-      <div className="weather">
+      <div className="weather" style={imgStyle}>
         <div className="search">
           <input
             type="text"
@@ -43,8 +82,11 @@ const Home = () => {
             <img src="src/images/search.png" alt="" />
           </button>
         </div>
+
+        <div className="error">
+          <p>{error}</p>
+        </div>
         <div className="winfo">
-          {/* <img src="src/images/Cloudy.jpg" alt="" /> */}
           <h1>{Math.round(data.celcius)} °C</h1>
           <h2>{data.name}</h2>
           <div className="details">
