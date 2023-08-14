@@ -6,6 +6,7 @@ const Home = () => {
   const [data, setData] = useState({
     celcius: 10,
     name: "Karachi",
+    weather: "Clear",
     humidity: 10,
     speed: 2,
     image: `url("src/images/bg.jpg")`,
@@ -17,12 +18,12 @@ const Home = () => {
 
   const imgStyle = {
     background: data.image,
-    // backgroundSize: "cover",
+    backgroundSize: "cover",
   };
 
   function handleClick() {
     if (city !== "") {
-      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=2fa73590fd8b5a4c6e68098ad5625395`;
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f5ccc0314221e8f9e0b8cd4d04adffb5`;
       axios
         .get(apiUrl)
         .then((res) => {
@@ -51,6 +52,7 @@ const Home = () => {
           setData({
             celcius: res.data.main.temp,
             name: res.data.name,
+            weather: res.data.weather[0].main,
             humidity: res.data.main.humidity,
             speed: res.data.wind.speed,
             image: `url(${imagePath})`,
@@ -88,6 +90,7 @@ const Home = () => {
         </div>
         <div className="winfo">
           <h1>{Math.round(data.celcius)} °C</h1>
+          <h4>{data.weather}</h4>
           <h2>{data.name}</h2>
           <div className="details">
             <div className="col">

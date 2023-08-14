@@ -12,9 +12,8 @@
   margin: 50px auto;
   text-align: center;
   color: white;
-  /* background: linear-gradient(130deg, rgb(86, 86, 235), rgb(5, 5, 199)); */
-  /* background: url("src/images/bg.jpg"); */
-  background-size: cover;
+  /* background: url("src/images/bg.jpg");
+  background-size: cover; */
 }
 
 .search {
@@ -52,6 +51,12 @@
   font-size: 70px;
   font-weight: 500;
   margin-top: 5px;
+}
+
+.winfo h4 {
+  margin-top: -30px;
+  margin-bottom: 50px;
+  font-size: 2rem;
 }
 
 .winfo h2 {
