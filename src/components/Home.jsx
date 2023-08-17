@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Time from "./Time";
 import "./style.css";
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
     humidity: 10,
     speed: 2,
     image: `url("src/images/bg.jpg")`,
+    timezone: "",
   });
 
   const [city, setCity] = useState("Karachi");
@@ -59,6 +61,7 @@ const Home = () => {
             humidity: res.data.main.humidity,
             speed: res.data.wind.speed,
             image: `url(${imagePath})`,
+            timezone: res.data.sys.timezone,
           });
           setError("");
         })
@@ -92,6 +95,10 @@ const Home = () => {
         <div className="error">
           <p>{error}</p>
         </div>
+        <Time timeZone={"Asia/Karachi"} />
+        {/* <div className="time">
+          <p>23:22:23</p>
+        </div> */}
         <div className="winfo">
           <h1>{Math.round(data.celcius)} °C</h1>
           <h4>{data.weather}</h4>
